@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ConsumerService {
+public class AuthenticationService {
 
     @Autowired
     private ConsumerRepository consumerRepository;
@@ -22,4 +22,16 @@ public class ConsumerService {
         }
         return "Email already in use";
     }
+
+    public String login(String email, String password) {
+        Consumer consumer = consumerRepository.findByEmail(email);
+        if (consumer == null) {
+            return "Consumer not found";
+        }
+        if (!encoder.matches(password, consumer.getPassword())){
+            return "Wrong password";
+        }
+        return "Consumer logged in successfully";
+    }
+
 }
