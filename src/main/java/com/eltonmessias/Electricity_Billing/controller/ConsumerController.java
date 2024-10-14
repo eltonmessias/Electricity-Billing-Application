@@ -29,4 +29,9 @@ public class ConsumerController {
         return new ResponseEntity<>(consumerService.getConsumerById(id), HttpStatus.OK);
     }
 
+    @PutMapping("/consumers/{id}")
+    public ResponseEntity<ConsumerDTO> updateConsumer( @RequestBody ConsumerDTO consumerDTO, @PathVariable Long id) {
+        return new ResponseEntity<>(consumerService.updateConsumer(consumerDTO, id), HttpStatus.OK);
+    }
+
 }

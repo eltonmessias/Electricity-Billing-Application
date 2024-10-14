@@ -37,5 +37,16 @@ public class ConsumerService {
         return convertToDTO(consumerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Consumer with id " + id + " not found")));
     }
 
+    public ConsumerDTO updateConsumer(ConsumerDTO consumerDTO, Long id) {
+        Consumer consumer = consumerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Consumer with id " + id + " not found"));
+
+        consumer.setFirstName(consumerDTO.firstName());
+        consumer.setLastName(consumerDTO.lastName());
+        consumer.setEmail(consumerDTO.email());
+        consumer.setAddress(consumerDTO.address());
+
+        return convertToDTO(consumerRepository.save(consumer));
+    }
+
 
 }
