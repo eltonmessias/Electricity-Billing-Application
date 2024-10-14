@@ -8,10 +8,7 @@ import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +22,11 @@ public class ConsumerController {
     @GetMapping("/consumers")
     public ResponseEntity<List<ConsumerDTO>> getConsumers() {
         return new ResponseEntity<>(consumerService.getAllConsumers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/consumers/{id}")
+    public ResponseEntity<ConsumerDTO> getConsumer(@PathVariable Long id) {
+        return new ResponseEntity<>(consumerService.getConsumerById(id), HttpStatus.OK);
     }
 
 }

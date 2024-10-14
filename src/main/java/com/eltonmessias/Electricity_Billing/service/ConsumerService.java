@@ -1,10 +1,12 @@
 package com.eltonmessias.Electricity_Billing.service;
 
 import com.eltonmessias.Electricity_Billing.dto.ConsumerDTO;
+import com.eltonmessias.Electricity_Billing.exception.ResourceNotFoundException;
 import com.eltonmessias.Electricity_Billing.model.Consumer;
 import com.eltonmessias.Electricity_Billing.repository.ConsumerRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,10 @@ public class ConsumerService {
 
     public List<ConsumerDTO> getAllConsumers() {
         return consumerRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    public ConsumerDTO getConsumerById(Long id) {
+        return convertToDTO(consumerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Consumer with id " + id + " not found")));
     }
 
 
