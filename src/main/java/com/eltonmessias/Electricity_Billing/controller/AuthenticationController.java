@@ -1,6 +1,6 @@
 package com.eltonmessias.Electricity_Billing.controller;
 
-import com.eltonmessias.Electricity_Billing.model.Consumer;
+import com.eltonmessias.Electricity_Billing.model.Customer;
 import com.eltonmessias.Electricity_Billing.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,12 +18,12 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> createConsumer(@RequestBody Consumer consumer) {
+    public ResponseEntity<String> createConsumer(@RequestBody Customer consumer) {
         return new ResponseEntity<>(authenticationService.saveConsumer(consumer), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Consumer consumer) {
+    public ResponseEntity<String> login(@RequestBody Customer consumer) {
         return new ResponseEntity<>(authenticationService.login(consumer.getEmail(), consumer.getPassword()), HttpStatus.ACCEPTED);
     }
 }

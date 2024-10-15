@@ -1,7 +1,7 @@
 package com.eltonmessias.Electricity_Billing.service;
 
-import com.eltonmessias.Electricity_Billing.model.Consumer;
-import com.eltonmessias.Electricity_Billing.repository.ConsumerRepository;
+import com.eltonmessias.Electricity_Billing.model.Customer;
+import com.eltonmessias.Electricity_Billing.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     @Autowired
-    private ConsumerRepository consumerRepository;
+    private CustomerRepository consumerRepository;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-    public String saveConsumer(Consumer consumer) {
+    public String saveConsumer(Customer consumer) {
         if (consumerRepository.findByEmail(consumer.getEmail()) == null) {
             consumer.setPassword(encoder.encode(consumer.getPassword()));
             consumerRepository.save(consumer);
@@ -24,7 +24,7 @@ public class AuthenticationService {
     }
 
     public String login(String email, String password) {
-        Consumer consumer = consumerRepository.findByEmail(email);
+        Customer consumer = consumerRepository.findByEmail(email);
         if (consumer == null) {
             return "Consumer not found";
         }
