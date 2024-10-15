@@ -17,17 +17,17 @@ public class CustomerController {
     private CustomerService customerService;
 
 
-    @GetMapping("/consumers")
+    @GetMapping("/customers")
     public ResponseEntity<List<ConsumerDTO>> getConsumers() {
         return new ResponseEntity<>(customerService.getAllConsumers(), HttpStatus.OK);
     }
 
-    @GetMapping("/consumers/{id}")
+    @GetMapping("/customers/{id}")
     public ResponseEntity<ConsumerDTO> getConsumer(@PathVariable Long id) {
         return new ResponseEntity<>(customerService.getConsumerById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/consumers/{id}")
+    @PutMapping("/customers/{id}")
     public ResponseEntity<ConsumerDTO> updateConsumer( @RequestBody ConsumerDTO consumerDTO, @PathVariable Long id) {
         return new ResponseEntity<>(customerService.updateConsumer(consumerDTO, id), HttpStatus.OK);
     }
