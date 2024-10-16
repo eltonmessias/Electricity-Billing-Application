@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 public record ConsumptionDTO(
         Long id,
-        Customer customer,
-        double consumption,
+        Long customer_id,
+        Double consumptionInKwh,
         LocalDateTime readingDate,
-        double costPerUnit,
-        double totalCost
+        Double costPerUnit,
+        Double totalCost
 ) {
 }

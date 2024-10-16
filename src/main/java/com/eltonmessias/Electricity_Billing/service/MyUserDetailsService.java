@@ -17,18 +17,18 @@ import java.util.List;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private CustomerRepository consumerRepository;
+    private CustomerRepository customerRepository;
 
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Customer consumer = consumerRepository.findByEmail(email);
-        if (consumer == null) {
+        Customer customer = customerRepository.findByEmail(email);
+        if (customer == null) {
             throw new UsernameNotFoundException("user not found");
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        return new org.springframework.security.core.userdetails.User(consumer.getEmail(), consumer.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(customer.getEmail(), customer.getPassword(), authorities);
 
     }
 }

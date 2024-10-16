@@ -14,8 +14,8 @@ public class Consumption {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     Customer customer;
-    double consumption;
+    Double consumptionInKwh;
     LocalDateTime readingDate;
-    double costPerUnit;
-    double totalCost;
+    Double costPerUnit;
+    Double totalCost;
 }
