@@ -1,5 +1,6 @@
 package com.eltonmessias.Electricity_Billing.model;
 
+import com.eltonmessias.Electricity_Billing.enums.BillStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,13 +15,13 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "reading_id")
     private Reading reading;
     private double amountDue;
     private LocalDateTime issuedDate;
     private LocalDateTime dueDate;
-    private boolean paid = false;
+    private BillStatus status;
 
 
 }
