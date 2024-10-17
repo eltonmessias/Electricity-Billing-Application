@@ -17,7 +17,7 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "reading_id")
     private Reading reading;
-    private double amount;
+    private double amountDue;
     private LocalDateTime issuedDate;
     private LocalDateTime dueDate;
     private boolean paid = false;
