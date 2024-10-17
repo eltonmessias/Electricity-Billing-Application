@@ -69,4 +69,10 @@ public class ReadingService {
         reading.setCostPerUnit(readingDTO.costPerUnit());
         reading.setTotalCost(readingDTO.totalCost());
     }
+
+    public String deleteReading(long id) {
+        Reading reading = readingRepository.findById(id).orElseThrow(() -> new RuntimeException("Reading not found"));
+        readingRepository.delete(reading);
+        return "Reading deleted successfully";
+    }
 }
