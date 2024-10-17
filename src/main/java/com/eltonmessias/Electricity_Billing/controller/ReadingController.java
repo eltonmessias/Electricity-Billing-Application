@@ -31,4 +31,9 @@ public class ReadingController {
         return new ResponseEntity<>(readingService.getReadingById(id), HttpStatus.OK);
     }
 
+    @PutMapping("/readings/{id}")
+    public ResponseEntity<ReadingDTO> updateReading(@PathVariable("id") long id, @RequestBody ReadingDTO readingDTO) {
+        return  new ResponseEntity<>(readingService.updateReading(readingDTO, id), HttpStatus.OK);
+    }
+
 }

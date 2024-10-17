@@ -34,13 +34,7 @@ public class ReadingService {
     public String registerConsumption(ReadingDTO consumptionDTO) {
         Reading reading = new Reading();
 
-        Customer customer = customerRepository.findById(consumptionDTO.customer_id()).orElseThrow(() -> new RuntimeException("Customer not found"));
-
-        reading.setCustomer(customer);
-        reading.setConsumptionInKwh(consumptionDTO.consumptionInKwh());
-        reading.setReadingDate(consumptionDTO.readingDate());
-        reading.setCostPerUnit(consumptionDTO.costPerUnit());
-        reading.setTotalCost(consumptionDTO.totalCost());
+        updateReading(consumptionDTO, reading);
 
         try {
             readingRepository.save(reading);
@@ -57,5 +51,22 @@ public class ReadingService {
 
     public ReadingDTO getReadingById(long id) {
         return convertToDTO(readingRepository.findById(id).orElseThrow(() -> new RuntimeException("Reading not found")));
+    }
+
+    public ReadingDTO updateReading(ReadingDTO readingDTO, long id) {
+        Reading reading = readingRepository.findById(id).orElseThrow(() -> new RuntimeException("Reading not found"));
+        updateReading(readingDTO, reading);
+        readingRepository.save(reading);
+        return convertToDTO(reading);
+
+    }
+
+    private void updateReading(ReadingDTO readingDTO, Reading reading) {
+        Customer customer = customerRepository.findById(readingDTO.customer_id()).orElseThrow(() -> new RuntimeException("Customer not found"));
+        reading.setCustomer(customer);
+        reading.setConsumptionInKwh(readingDTO.consumptionInKwh());
+        reading.setReadingDate(readingDTO.readingDate());
+        reading.setCostPerUnit(readingDTO.costPerUnit());
+        reading.setTotalCost(readingDTO.totalCost());
     }
 }
