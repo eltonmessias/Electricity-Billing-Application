@@ -18,5 +18,7 @@ public class BillController {
 
     public ResponseEntity<BillDTO> generateBill(@PathVariable("id") long id) {
         return new ResponseEntity<>(billService.createBill(id), HttpStatus.CREATED);
+
+
     }
 }
