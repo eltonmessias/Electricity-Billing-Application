@@ -1,10 +1,8 @@
 package com.eltonmessias.Electricity_Billing.dto;
 
-import com.eltonmessias.Electricity_Billing.model.Customer;
-
 import java.time.LocalDateTime;
 
-public record ConsumptionDTO(
+public record ReadingDTO(
         Long id,
         Long customer_id,
         Double consumptionInKwh,

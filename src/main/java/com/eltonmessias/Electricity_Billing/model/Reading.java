@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-public class Consumption {
+public class Reading {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
