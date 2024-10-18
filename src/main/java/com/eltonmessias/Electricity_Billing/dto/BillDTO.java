@@ -14,5 +14,4 @@ public record BillDTO(
         LocalDateTime issuedDate,
         LocalDateTime dueDate,
         BillStatus status
-
 ) { }

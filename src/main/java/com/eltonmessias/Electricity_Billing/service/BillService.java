@@ -76,4 +76,9 @@ public class BillService {
         return convertBillToDTO((Bill) bills);
     }
 
+    public BillDTO getBillById(long id) {
+        Bill bill = billRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("bill not found"));
+        return convertBillToDTO(bill);
+    }
+
 }

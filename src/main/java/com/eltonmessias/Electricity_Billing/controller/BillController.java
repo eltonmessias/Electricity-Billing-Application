@@ -25,4 +25,9 @@ public class BillController {
         return billService.getAllBills();
     }
 
+    @GetMapping("/bills/{id}")
+    public ResponseEntity<BillDTO> getBillById(@PathVariable("id") long id) {
+        return new ResponseEntity<>(billService.getBillById(id), HttpStatus.OK);
+    }
+
 }
