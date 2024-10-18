@@ -38,7 +38,8 @@ public class ReadingController {
 
     @DeleteMapping("readings/{id}")
     public ResponseEntity<String> deleteReading(@PathVariable("id") long id) {
-        return new ResponseEntity<>(readingService.deleteReading(id),HttpStatus.OK);
+        readingService.deleteReading(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
