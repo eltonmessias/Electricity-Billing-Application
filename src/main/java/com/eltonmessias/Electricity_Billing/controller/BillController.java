@@ -46,4 +46,10 @@ public class BillController {
     public BillStatus updateBillStatus(@PathVariable("id") long id, @RequestBody BillDTO billDTO) {
         return billService.updateBillStatus(id, billDTO.status());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BillDTO> deleteBill(@PathVariable("id") long id) {
+        billService.deleteBillById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

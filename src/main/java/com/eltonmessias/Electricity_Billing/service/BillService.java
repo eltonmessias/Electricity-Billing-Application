@@ -95,4 +95,9 @@ public class BillService {
         return bill.getStatus();
     }
 
+    public void deleteBillById(long id) {
+        Bill bill = billRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("bill not found"));
+        billRepository.delete(bill);
+    }
+
 }
