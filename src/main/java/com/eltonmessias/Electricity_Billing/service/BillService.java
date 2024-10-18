@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 public class BillService {
@@ -68,6 +69,11 @@ public class BillService {
         Bill bill = generateBillFromReading(reading);
         billRepository.save(bill);
         return convertBillToDTO(bill);
+    }
+
+    public BillDTO getAllBills() {
+        List<Bill> bills = billRepository.findAll();
+        return convertBillToDTO((Bill) bills);
     }
 
 }
