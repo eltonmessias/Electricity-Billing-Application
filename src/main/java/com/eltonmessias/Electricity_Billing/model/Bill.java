@@ -23,5 +23,4 @@ public class Bill {
     private LocalDateTime dueDate;
     private BillStatus status;
 
-
 }

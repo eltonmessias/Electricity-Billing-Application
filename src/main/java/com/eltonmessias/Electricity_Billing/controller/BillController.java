@@ -14,7 +14,7 @@ public class BillController {
     @Autowired
     private BillService billService;
 
-    @PostMapping("/bills")
+    @PostMapping("/bills/{id}")
     public ResponseEntity<BillDTO> generateBill(@PathVariable("id") long id) {
         return new ResponseEntity<>(billService.createBill(id), HttpStatus.CREATED);
 
