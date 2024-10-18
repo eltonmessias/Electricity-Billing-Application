@@ -1,6 +1,7 @@
 package com.eltonmessias.Electricity_Billing.controller;
 
 import com.eltonmessias.Electricity_Billing.dto.BillDTO;
+import com.eltonmessias.Electricity_Billing.enums.BillStatus;
 import com.eltonmessias.Electricity_Billing.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,4 +42,8 @@ public class BillController {
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public BillStatus updateBillStatus(@PathVariable("id") long id, @RequestBody BillDTO billDTO) {
+        return billService.updateBillStatus(id, billDTO.status());
+    }
 }

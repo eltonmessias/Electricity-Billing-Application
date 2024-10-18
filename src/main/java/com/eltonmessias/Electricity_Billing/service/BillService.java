@@ -88,4 +88,11 @@ public class BillService {
         return bills.stream().map(this::convertBillToDTO).collect(Collectors.toList());
     }
 
+    public BillStatus updateBillStatus(long id, BillStatus status) {
+        Bill bill = billRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("bill not found"));
+        bill.setStatus(status);
+        billRepository.save(bill);
+        return bill.getStatus();
+    }
+
 }
