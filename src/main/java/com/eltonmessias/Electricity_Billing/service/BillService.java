@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BillService {
@@ -79,6 +80,12 @@ public class BillService {
     public BillDTO getBillById(long id) {
         Bill bill = billRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("bill not found"));
         return convertBillToDTO(bill);
+    }
+
+    public List<BillDTO> getAllBillsByCustomerId(long id) {
+        List<Bill> bills = billRepository.findByCustomerId(id);
+
+        return bills.stream().map(this::convertBillToDTO).collect(Collectors.toList());
     }
 
 }
