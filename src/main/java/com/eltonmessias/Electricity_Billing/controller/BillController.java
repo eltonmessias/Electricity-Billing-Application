@@ -33,8 +33,8 @@ public class BillController {
         return new ResponseEntity<>(billService.getBillById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/customer/{customerId}")
-    public ResponseEntity<List<BillDTO>> getBillsByCustomerId(@PathVariable("customerId") long customerId) {
+    @GetMapping("/customer/")
+    public ResponseEntity<List<BillDTO>> getBillsByCustomerId(@RequestParam("customerId") long customerId) {
         List<BillDTO> bills = billService.getAllBillsByCustomerId(customerId);
         if(bills.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
