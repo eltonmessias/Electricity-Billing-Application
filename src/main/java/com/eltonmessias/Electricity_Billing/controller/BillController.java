@@ -23,8 +23,8 @@ public class BillController {
 
     }
 
-    @GetMapping("/")
-    public BillDTO getBills() {
+    @GetMapping("")
+    public List<BillDTO> getBills() {
         return billService.getAllBills();
     }
 

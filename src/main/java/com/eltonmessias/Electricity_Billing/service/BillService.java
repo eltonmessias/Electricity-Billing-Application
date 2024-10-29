@@ -72,9 +72,8 @@ public class BillService {
         return convertBillToDTO(bill);
     }
 
-    public BillDTO getAllBills() {
-        List<Bill> bills = billRepository.findAll();
-        return convertBillToDTO((Bill) bills);
+    public List<BillDTO> getAllBills() {
+        return billRepository.findAll().stream().map(this::convertBillToDTO).collect(Collectors.toList());
     }
 
     public BillDTO getBillById(long id) {
