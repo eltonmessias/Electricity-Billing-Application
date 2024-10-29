@@ -24,8 +24,8 @@ public class StripeController {
 
     @PostMapping("/charge")
     @ResponseBody
-    public StripeChargeDto charge(@RequestBody StripeChargeDto stripeChargeDto) {
-        return stripeService.charge(stripeChargeDto);
+    public StripeChargeDto charge(@RequestBody StripeChargeDto stripeChargeDto, @RequestParam Long billId) {
+        return stripeService.charge(billId, stripeChargeDto);
     }
 
 }
