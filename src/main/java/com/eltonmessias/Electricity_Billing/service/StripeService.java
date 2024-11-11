@@ -42,39 +42,39 @@ public class StripeService {
     }
 
 
-//    public StripeTokenDTO createCardToken(StripeTokenDTO model) {
-//        try {
-//            Map<String, Object> card = new HashMap<>();
-//            card.put("number", model.getCardNumber());
-//            card.put("exp_month", model.getExpMonth());
-//            card.put("exp_year", model.getExpYear());
-//            card.put("cvc", model.getCvc());
-//            Map<String, Object> params = new HashMap<>();
-//            params.put("card", card);
-//            Token token = Token.create(params);
-//            if (token != null && token.getId() != null) {
-//                model.setSuccess(true);
-//                model.setToken(token.getId());
-//            }
-//            return model;
-//        } catch (StripeException e) {
-//            log.error("StripeService (createCardToken) ", e);
-//            throw new RuntimeException(e.getMessage());
-//        }
-//    }
-
     public StripeTokenDTO createCardToken(StripeTokenDTO model) {
         try {
-            // Utilizando o token de teste em vez dos dados de cartão para simulação segura
-            String testToken = "tok_visa"; // Token de teste fornecido pelo Stripe
-            model.setSuccess(true);
-            model.setToken(testToken);
+            Map<String, Object> card = new HashMap<>();
+            card.put("number", model.getCardNumber());
+            card.put("exp_month", model.getExpMonth());
+            card.put("exp_year", model.getExpYear());
+            card.put("cvc", model.getCvc());
+            Map<String, Object> params = new HashMap<>();
+            params.put("card", card);
+            Token token = Token.create(params);
+            if (token != null && token.getId() != null) {
+                model.setSuccess(true);
+                model.setToken(token.getId());
+            }
             return model;
-        } catch (Exception e) {
-            log.error("StripeService (createCardToken)", e);
-            throw new RuntimeException("Erro ao criar o token: " + e.getMessage());
+        } catch (StripeException e) {
+            log.error("StripeService (createCardToken) ", e);
+            throw new RuntimeException(e.getMessage());
         }
     }
+
+//    public StripeTokenDTO createCardToken(StripeTokenDTO model) {
+//        try {
+//            // Utilizando o token de teste em vez dos dados de cartão para simulação segura
+//            String testToken = "tok_visa"; // Token de teste fornecido pelo Stripe
+//            model.setSuccess(true);
+//            model.setToken(testToken);
+//            return model;
+//        } catch (Exception e) {
+//            log.error("StripeService (createCardToken)", e);
+//            throw new RuntimeException("Erro ao criar o token: " + e.getMessage());
+//        }
+//    }
 
 //    public StripeChargeDto charge(StripeChargeDto chargeRequest) {
 //
