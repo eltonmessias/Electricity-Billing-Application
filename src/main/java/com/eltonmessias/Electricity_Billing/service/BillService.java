@@ -8,6 +8,7 @@ import com.eltonmessias.Electricity_Billing.model.Reading;
 import com.eltonmessias.Electricity_Billing.repository.BillRepository;
 import com.eltonmessias.Electricity_Billing.repository.CustomerRepository;
 import com.eltonmessias.Electricity_Billing.repository.ReadingRepository;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,9 @@ public class BillService {
 
     @Autowired
     private ReadingRepository readingRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     private BillDTO convertBillToDTO(Bill bill) {
         return  new BillDTO(
@@ -65,10 +69,11 @@ public class BillService {
         return bill;
     }
 
-    public BillDTO createBill(long readingId) {
+    public BillDTO createBill(long readingId) throws MessagingException {
         Reading reading = readingRepository.findById(readingId).orElseThrow(() -> new ResourceNotFoundException("reading not found"));
         Bill bill = generateBillFromReading(reading);
         billRepository.save(bill);
+        emailService.sendEmail(bill.getCustomer().getEmail(), bill.getCustomer().getFirstName(),"Factura de Energia", bill.getReading().getId(), bill.getReading().getConsumptionInKwh(), bill.getDueDate(), bill.getAmountDue());
         return convertBillToDTO(bill);
     }
 

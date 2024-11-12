@@ -4,10 +4,11 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class EmailService {
@@ -31,7 +32,7 @@ public class EmailService {
 //    }
 
 
-    public void sendEmail(String toEmail,String customerName, String subject,String readingId,double consumptionKWh, String body, String dueDate, String amount) throws MessagingException, MessagingException {
+    public void sendEmail(String toEmail, String customerName, String subject, Long readingId, double consumptionKWh, LocalDateTime dueDate, double amount) throws MessagingException, MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
