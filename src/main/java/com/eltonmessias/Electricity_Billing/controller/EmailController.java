@@ -15,9 +15,9 @@ public class EmailController {
     private EmailService emailService;
 
 
-    @GetMapping("/send-email")
-    public String sendEmail() throws MessagingException {
-        emailService.sendEmail("guambee43@gmail.com", "Elton Messias", "Factura", "125",22.2, "hee", "10.06", "2565");
-        return "Email sent";
-    }
+//    @GetMapping("/send-email")
+//    public String sendEmail() throws MessagingException {
+//        emailService.sendEmail("guambee43@gmail.com", "Elton Messias", "Factura", 25,22.2, "hee", "10.06", "2565");
+//        return "Email sent";
+//    }
 }

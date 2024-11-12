@@ -21,16 +21,6 @@ public class EmailService {
     private String fromEmailAddress;
 
 
-//    public void sendEmail(String to, String subject, String body) {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setTo(to);
-//        message.setSubject(subject);
-//        message.setText(body);
-//        message.setFrom("Electricity Billing <" + fromEmailAddress + ">");
-//        mailSender.send(message);
-//
-//    }
-
 
     public void sendEmail(String toEmail, String customerName, String subject, Long readingId, double consumptionKWh, LocalDateTime dueDate, double amount) throws MessagingException, MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -40,7 +30,6 @@ public class EmailService {
         helper.setTo(toEmail);
         helper.setSubject("Fatura de Energia Elétrica - " + readingId);
 
-        // Conteúdo HTML personalizado
         String htmlContent = "<html><body style='font-family: Arial, sans-serif;'>" +
                 "<div style='max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;'>" +
                 "<h2 style='color: #00466a; text-align: center;'>Fatura de Energia Elétrica</h2>" +

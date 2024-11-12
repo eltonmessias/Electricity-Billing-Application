@@ -3,6 +3,7 @@ package com.eltonmessias.Electricity_Billing.controller;
 import com.eltonmessias.Electricity_Billing.dto.BillDTO;
 import com.eltonmessias.Electricity_Billing.enums.BillStatus;
 import com.eltonmessias.Electricity_Billing.service.BillService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class BillController {
     private BillService billService;
 
     @PostMapping("/{id}")
-    public ResponseEntity<BillDTO> generateBill(@PathVariable("id") long id) {
+    public ResponseEntity<BillDTO> generateBill(@PathVariable("id") long id) throws MessagingException {
         return new ResponseEntity<>(billService.createBill(id), HttpStatus.CREATED);
 
     }
