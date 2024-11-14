@@ -46,7 +46,7 @@ public class EmailService {
                 "  <tr>" +
                 "    <td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>" + readingId + "</td>" +
                 "    <td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>" + dueDate + "</td>" +
-                "    <td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>R$ " + amount + "</td>" +
+                "    <td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>$ " + amount + "</td>" +
                 "    <td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>" + consumptionKWh + " kWh</td>" +
                 "  </tr>" +
                 "</table>" +

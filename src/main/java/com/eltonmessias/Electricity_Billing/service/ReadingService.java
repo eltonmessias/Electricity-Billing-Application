@@ -20,6 +20,8 @@ public class ReadingService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    private final double costPerUnitKwh = 20.0;
+
     private ReadingDTO convertToDTO(Reading consumption) {
         return new ReadingDTO(consumption.getId(), consumption.getCustomer().getId(), consumption.getConsumptionInKwh(), consumption.getReadingDate(), consumption.getCostPerUnit(), consumption.getTotalCost());
     }
@@ -31,14 +33,14 @@ public class ReadingService {
         return consumption;
     }
 
-    public String registerConsumption(ReadingDTO consumptionDTO) {
+    public Object registerConsumption(ReadingDTO consumptionDTO) {
         Reading reading = new Reading();
 
         updateReading(consumptionDTO, reading);
 
         try {
-            readingRepository.save(reading);
-            return "Consumption registered successfully";
+            Reading read =  readingRepository.save(reading);
+            return convertToDTO(read);
         } catch (Exception e) {
             return "Consumption could not be registered: " + e.getMessage();
         }
@@ -66,8 +68,8 @@ public class ReadingService {
         reading.setCustomer(customer);
         reading.setConsumptionInKwh(readingDTO.consumptionInKwh());
         reading.setReadingDate(readingDTO.readingDate());
-        reading.setCostPerUnit(readingDTO.costPerUnit());
-        reading.setTotalCost(readingDTO.totalCost());
+        reading.setCostPerUnit(costPerUnitKwh);
+        reading.setTotalCost(costPerUnitKwh * readingDTO.consumptionInKwh());
     }
 
     public void deleteReading(long id) {

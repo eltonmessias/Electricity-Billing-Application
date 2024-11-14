@@ -17,8 +17,8 @@ public class ReadingController {
     private ReadingService readingService;
 
     @PostMapping("/readings")
-    public String SaveConsumption(@RequestBody ReadingDTO consumptionDTO) {
-        return readingService.registerConsumption(consumptionDTO);
+    public ResponseEntity<Object> SaveConsumption(@RequestBody ReadingDTO consumptionDTO) {
+        return new ResponseEntity<>(readingService.registerConsumption(consumptionDTO), HttpStatus.CREATED) ;
     }
 
     @GetMapping("/readings")
