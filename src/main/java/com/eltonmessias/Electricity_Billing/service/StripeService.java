@@ -11,6 +11,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.model.Token;
 import jakarta.annotation.PostConstruct;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,9 @@ public class StripeService {
 
     @Autowired
     private BillRepository billRepository;
+
+    @Autowired
+    private EmailService emailService;
 
 
     @Value("${api.stripe.key}")
@@ -115,6 +119,7 @@ public class StripeService {
             Map<String, Object> chargeParams = new HashMap<>();
             chargeParams.put("amount", (int) (bill.getAmountDue() * 100));
             chargeParams.put("currency", "usd");
+            chargeParams.put("payment_method", "tok_visa");
             chargeParams.put("description", "Payment for Bill ID " + billId);
             chargeParams.put("source", chargeRequest.getStripeToken());
 
@@ -132,12 +137,16 @@ public class StripeService {
                 chargeRequest.setSuccess(true);
                 bill.setStatus(BillStatus.valueOf("PAID"));
                 billRepository.save(bill);
+                emailService.sendPaymentConfirmationEmail(bill.getCustomer().getEmail(), bill.getCustomer().getFirstName(), bill.getReading().getId(), bill.getIssuedDate(), String.valueOf(bill.getAmountDue()));
+
             }
 
             return chargeRequest;
 
         } catch (StripeException e) {
             throw new RuntimeException(e.getMessage());
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
     }
 

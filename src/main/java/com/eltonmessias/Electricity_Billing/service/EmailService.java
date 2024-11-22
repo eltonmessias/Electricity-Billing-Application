@@ -69,4 +69,42 @@ public class EmailService {
         mailSender.send(mimeMessage);
     }
 
+    public void sendPaymentConfirmationEmail(String toEmail, String customerName, Long readingId, LocalDateTime paymentDate, String amount) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+
+        helper.setFrom(fromEmailAddress);
+        helper.setTo(toEmail);
+        helper.setSubject("Confirmação de Pagamento - Fatura "+ readingId);
+
+        String htmlContent = "<html><body style='font-family: Arial, sans-serif;'>" +
+                "<div style='max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;'>" +
+                "<h2 style='color: #00466a; text-align: center;'>Confirmação de Pagamento</h2>" +
+                "<p>Prezado(a) <strong>" + customerName + "</strong>,</p>" +
+                "<p>Agradecemos pelo seu pagamento! Abaixo estão os detalhes:</p>" +
+
+                "<table style='width: 100%; border-collapse: collapse; margin-top: 20px;'>" +
+                "  <tr>" +
+                "    <th style='background-color: #00466a; color: #ffffff; padding: 10px; border: 1px solid #ddd;'>Número da Fatura</th>" +
+                "    <th style='background-color: #00466a; color: #ffffff; padding: 10px; border: 1px solid #ddd;'>Data do Pagamento</th>" +
+                "    <th style='background-color: #00466a; color: #ffffff; padding: 10px; border: 1px solid #ddd;'>Valor Pago</th>" +
+                "  </tr>" +
+                "  <tr>" +
+                "    <td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>" + readingId + "</td>" +
+                "    <td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>" + paymentDate + "</td>" +
+                "    <td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>R$ " + amount + "</td>" +
+                "  </tr>" +
+                "</table>" +
+
+                "<p style='margin-top: 20px;'>Se você tiver alguma dúvida ou precisar de suporte adicional, entre em contato conosco.</p>" +
+
+                "<p>Atenciosamente,</p>" +
+                "<p><strong>Sua Empresa de Energia</strong></p>" +
+                "<p style='font-size: 12px; color: #888888;'>Este é um e-mail automático. Por favor, não responda.</p>" +
+                "</div></body></html>";
+
+        helper.setText(htmlContent, true);
+        mailSender.send(mimeMessage);
+    }
+
 }
