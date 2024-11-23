@@ -1,5 +1,6 @@
 package com.eltonmessias.Electricity_Billing.service;
 
+import com.eltonmessias.Electricity_Billing.exception.ResourceNotFoundException;
 import com.eltonmessias.Electricity_Billing.model.Customer;
 import com.eltonmessias.Electricity_Billing.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,16 @@ public class AuthenticationService {
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-    public String saveConsumer(Customer consumer) {
-        if (consumerRepository.findByEmail(consumer.getEmail()) == null) {
-            consumer.setPassword(encoder.encode(consumer.getPassword()));
-            consumerRepository.save(consumer);
-            return "Consumer saved successfully";
+    public Customer saveCustomer(Customer consumer) {
+
+        try {
+            if (consumerRepository.findByEmail(consumer.getEmail()) == null) {
+                consumer.setPassword(encoder.encode(consumer.getPassword()));
+            }                return consumerRepository.save(consumer);
+
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(e.getMessage());
         }
-        return "Email already in use";
     }
 
     public ResponseEntity<String> login(String email, String password) throws AuthenticationException {

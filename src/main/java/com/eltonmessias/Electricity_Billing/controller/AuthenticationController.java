@@ -22,8 +22,8 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> createConsumer(@RequestBody Customer consumer) {
-        return new ResponseEntity<>(authenticationService.saveConsumer(consumer), HttpStatus.CREATED);
+    public ResponseEntity<Customer> createConsumer(@RequestBody Customer consumer) {
+        return new ResponseEntity<>(authenticationService.saveCustomer(consumer), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
