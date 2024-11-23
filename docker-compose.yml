@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8089:8080"
+    networks:
+      - electricity-network
+
+  postgres:
+    image: postgres:latest
+    environment:
+       POSTGRES_USER: postgres
+       POSTGRES_PASSWORD: messias8669
+       POSTGRES_DB: Electricity-Billing
+    ports:
+      - 5432:5432
+    networks:
+      - electricity-network
+    volumes:
+      - postgres-EBilling-data:/var/lib/postgresql/data
+
+
+networks:
+  electricity-network:
+    driver: bridge
+
+
+volumes:
+  postgres-EBilling-data:
